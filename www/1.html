@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .panel{
+            width: 714px;
+            height: 617px;
+            background: url('image/panel.gif') no-repeat;
+            position: relative;
+        }
+        .pointer{
+            width: 165px;
+            height: 206px;
+            background: url('image/pointer.png') no-repeat;
+            position: absolute;
+            top: 170px;
+            left:267px;
+            transition: 3s all ease-in-out;
+            transform-origin: 87px 131px; /*旋转中心点*/
+        }
+    </style>
+    <script src="js/ajax.js" charset="utf-8"></script>
+    <script>
+        function rnd(n, m) {
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        window.onload=function () {
+            var oPointer=document.querySelector('.pointer');
+
+            oPointer.onclick=function () {
+                ajax({
+                    url:'/chou',
+                    success: function (str) {
+                        var n = parseInt(str);
+                        var deg = 0;
+                        switch (n){
+                            case 1:
+                                deg=300;
+                                break;
+                            case 2:
+                                deg=rnd(0,3)*120;
+                                break;
+                            case 3:
+                                deg=180;
+                                break;
+                            case 0:
+                                deg=60;
+                                break;
+                        }
+                        deg+=rnd(3,6)*360;
+                        oPointer.style.transform='rotate('+deg+'deg)';
+                    }
+                });
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="panel">
+        <div class="pointer"></div>
+    </div>
+</body>
+</html>
